@@ -22,8 +22,16 @@ namespace POSBackend.Controllers
         [HttpGet]
         public IActionResult GetAllCustomers()
         {
-            var  allEmployees=dbContext.Customers.ToList();
-            return Ok(allEmployees);
+            var  allCustomers=dbContext.Customers.ToList();
+            List<Customer> customers = new List<Customer>();
+            foreach (var customer in allCustomers)
+            {
+                if (customer.Availability == "available")
+                {
+                    customers.Add(customer);
+                }
+            }
+            return Ok(customers);
         }
 
         [HttpGet]
