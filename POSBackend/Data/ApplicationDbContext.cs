@@ -15,5 +15,13 @@ namespace POSBackend.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<PlaceOrder> PlaceOrders  { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configure composite key for OrderItem 
+            modelBuilder.Entity<OrderItem>()
+                .HasKey(oi => new { oi.OrderId, oi.ItemId });
+
+        }
+
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace POSBackend.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace POSBackend.Models.Entities
 {
     public class PlaceOrder
     {
+        [Key]
         public required string OrderId { get; set; }
         public required string CustomerId { get; set; }
         public Customer? Customer { get; set; }
