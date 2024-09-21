@@ -19,10 +19,9 @@ namespace POSBackend.Controllers
         }
 
         [HttpPost]
-        [Route("{customerId:guid}")]
-        public IActionResult AddOrder(Guid customerId, List<OrderItemDto> items)
+        public IActionResult AddOrder(PlaceOrderDto dto)
         {
-            Customer? customer = dbContext.Customers.Find(customerId);
+            Customer? customer = dbContext.Customers.Find(dto.CustomerId);
             if (customer == null)
             {
                 return NotFound("Customer not found");
@@ -31,18 +30,18 @@ namespace POSBackend.Controllers
             var order = new PlaceOrder
             {
                 OrderId = Guid.NewGuid().ToString(),
-                CustomerId = customer.Id.ToString("D"),
+                CustomerId = dto.CustomerId,
                 Customer = customer,
                 OrderDate = DateTime.Now,
-                Paid = 0,
-                Discount = 0,
-                Balance = 0,
+                Paid = dto.Paid,
+                Discount = dto.Discount,
+                Balance = dto.Balance,
                 OrderItems = new List<OrderItem>()
             };
 
             double totalAmount = 0;
 
-            foreach (var itemDto in items)
+            foreach (var itemDto in dto.items)
             {
                 if (string.IsNullOrWhiteSpace(itemDto.ItemId) || itemDto.ItemId == Guid.Empty.ToString())
                 {

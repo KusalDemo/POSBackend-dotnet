@@ -6,7 +6,7 @@ namespace POSBackend.Models.Entities
     {
         [Key]
         public required string OrderId { get; set; }
-        public required string CustomerId { get; set; }
+        public required Guid CustomerId { get; set; }
         public Customer? Customer { get; set; }
 
         public required DateTime OrderDate { get; set; }
