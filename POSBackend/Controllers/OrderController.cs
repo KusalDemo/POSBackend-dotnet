@@ -77,5 +77,12 @@ namespace POSBackend.Controllers
             dbContext.SaveChanges();
             return Ok(order);
         }
+
+        [HttpGet]
+        public IActionResult GetAllOrders()
+        {
+            List<PlaceOrder> placeOrders = dbContext.PlaceOrders.ToList();
+            return Ok(placeOrders);
+        }
     }
 }
